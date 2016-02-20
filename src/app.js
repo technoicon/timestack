@@ -1,10 +1,28 @@
 export class App {
   configureRouter(config, router) {
-    config.title = 'Aurelia';
+    config.title = 'TimeStack';
     config.map([
-      { route: ['', 'welcome'], name: 'welcome',      moduleId: 'welcome',      nav: true, title: 'Welcome' },
-      { route: 'users',         name: 'users',        moduleId: 'users',        nav: true, title: 'Github Users' },
-      { route: 'child-router',  name: 'child-router', moduleId: 'child-router', nav: true, title: 'Child Router' }
+      { 
+      	route: ['', 'welcome'], 
+      	name: 'welcome',
+      	moduleId: 'pages/welcome/welcome', 
+      	nav: true, 
+      	title: 'Welcome' 
+      },
+      { 
+      	route: ['track'], 
+      	name: 'track',
+      	moduleId: 'pages/track/track',
+      	nav: true,
+      	title: 'Track' 
+      },
+      { 
+      	route: ['setup'],
+      	name: 'setup',
+      	moduleId: 'pages/setup/setup',
+      	nav: true,
+      	title: 'Setup'
+      }
     ]);
 
     this.router = router;
