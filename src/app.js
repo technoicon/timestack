@@ -17,11 +17,18 @@ export class App {
       	title: 'Track' 
       },
       { 
-      	route: ['setup'],
-      	name: 'setup',
-      	moduleId: 'pages/setup/setup',
+      	route: ['projects'],
+      	name: 'projects',
+      	moduleId: 'pages/projects/projects',
       	nav: true,
-      	title: 'Setup'
+      	title: 'Projects'
+      },
+      { 
+      	route: ['history'],
+      	name: 'history',
+      	moduleId: 'pages/history/history',
+      	nav: true,
+      	title: 'History'
       }
     ]);
 
