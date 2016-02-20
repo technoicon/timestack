@@ -29,6 +29,13 @@ export class App {
       	moduleId: 'pages/history/history',
       	nav: true,
       	title: 'History'
+      },
+      {
+        route: ['settings'],
+        name: 'settings',
+        moduleId: 'pages/settings/settings',
+        nav: true,
+        title: 'Settings'
       }
     ]);
 

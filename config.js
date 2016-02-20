@@ -15,6 +15,7 @@ System.config({
 
   map: {
     "aurelia-animator-css": "npm:aurelia-animator-css@1.0.0-beta.1.1.0",
+    "aurelia-binding": "npm:aurelia-binding@1.0.0-beta.1.1.3",
     "aurelia-bootstrapper": "npm:aurelia-bootstrapper@1.0.0-beta.1.1.1",
     "aurelia-fetch-client": "npm:aurelia-fetch-client@1.0.0-beta.1.1.0",
     "aurelia-framework": "npm:aurelia-framework@1.0.0-beta.1.1.1",
@@ -187,6 +188,12 @@ System.config({
       "aurelia-task-queue": "npm:aurelia-task-queue@1.0.0-beta.1.1.0",
       "core-js": "npm:core-js@2.1.0"
     },
+    "npm:aurelia-binding@1.0.0-beta.1.1.3": {
+      "aurelia-metadata": "npm:aurelia-metadata@1.0.0-beta.1.1.4",
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.1.1",
+      "aurelia-task-queue": "npm:aurelia-task-queue@1.0.0-beta.1.1.1",
+      "core-js": "npm:core-js@2.1.0"
+    },
     "npm:aurelia-bootstrapper@1.0.0-beta.1.1.1": {
       "aurelia-event-aggregator": "npm:aurelia-event-aggregator@1.0.0-beta.1.1.0",
       "aurelia-framework": "npm:aurelia-framework@1.0.0-beta.1.1.1",
@@ -280,6 +287,9 @@ System.config({
       "core-js": "npm:core-js@2.1.0"
     },
     "npm:aurelia-task-queue@1.0.0-beta.1.1.0": {
+      "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.1.1"
+    },
+    "npm:aurelia-task-queue@1.0.0-beta.1.1.1": {
       "aurelia-pal": "npm:aurelia-pal@1.0.0-beta.1.1.1"
     },
     "npm:aurelia-templating-binding@1.0.0-beta.1.1.0": {

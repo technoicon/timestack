@@ -1,13 +1,131 @@
 <template>
+	<require from="components/modal/modal"></require>
+
+	<modal visible.two-way="isCreating">
+		<template replace-part="modal-content">
+			<div class="row">
+				<div class="col-sm-12">
+					<label for="name">Name</label>
+					<div class="input-group" style="width:100%;">
+						<input type="text" class="form-control" id="name" value.two-way="editingTask.name">
+					</div>
+					<br>
+					<label for="desc">Description</label>
+					<div class="input-group" style="width:100%;">
+						<textarea type="text" class="form-control" id="desc" value.two-way="editingTask.desc"></textarea>
+					</div>
+					<br>
+					<label for="desc">Project</label>
+					<div class="input-group" style="width:100%;">
+						<select value.bind="editingTask.project_id" style="width:100%;">
+						    <option>Select A Project</option>
+						    <option repeat.for="project of projects" value.bind="project._id">${project.name}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-12" style="text-align:right;">
+					<!-- <button click.delegate="cancelCreate()" type="button" class="btn btn-default">Cancel</button> -->
+					<button click.delegate="newTask( editingTask )" type="button" class="btn btn-primary">Create</button>
+				</div>
+			</div>
+		</template>
+	</modal>
+
+	<modal visible.two-way="isEditing">
+		<template replace-part="modal-content">
+			<div class="row">
+				<div class="col-sm-12">
+					<label for="name">Name</label>
+					<div class="input-group" style="width:100%;">
+						<input type="text" class="form-control" id="name" value.two-way="editingTask.name">
+					</div>
+					<br>
+					<label for="desc">Description</label>
+					<div class="input-group" style="width:100%;">
+						<textarea type="text" class="form-control" id="desc" value.two-way="editingTask.desc"></textarea>
+					</div>
+					<br>
+					<label for="desc">Project</label>
+					<div class="input-group" style="width:100%;">
+						<select value.bind="editingTask.project_id" style="width:100%;">
+						    <option>Select A Project</option>
+						    <option repeat.for="project of projects" value.bind="project._id">${project.name}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-12" style="text-align:right;">					
+					<button click.delegate="updateTask( editingTask )" type="button" class="btn btn-primary">OK</button>
+				</div>
+			</div>
+		</template>
+	</modal>
+
 	<compose view="components/page-header/page-header.html"></compose>
 
 	<section>
 		<section>
-			<compose view="components/item-create/item-create.html"></compose>
+		  	<div class="row">
+				<div class="col-sm-6">
+					<h4>${item_type}</h4>
+				</div>
+				<div class="col-sm-6" style="text-align:right;">
+					<button class="btn btn-success" type="button" click.delegate="createTask()">
+						<i class="fa fa-plus"></i>
+						Create ${item_type}
+					</button>
+				</div>
+			</div>
 		</section>
 
-		<section>
-			
+		<section style="margin-top:30px;">
+  			<div class="row">
+  				<div class="col-sm-12">
+					<div class="list-group">
+						<a repeat.for="task of tasks" href="javascript:;" class="list-group-item">
+							<div class="row">
+								<div class="col-sm-2" style="text-align:center;">
+									<div class="timer-buttons">
+										<div>
+											Start Timer
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-10">
+									<h4 class="list-group-item-heading">
+										${task.name} - ${getProjectName(task)}
+									</h4>
+									<p>
+										${task.desc}
+									</p>
+									<div class="time-hover-tools">
+										<div click.delegate="editTask( task )">
+											Edit
+										</div>
+										<div click.delegate="removeTask( task )">
+											Remove
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row" if.bind="!tasks || tasks.length === 0">
+				<div class="col-sm-8 col-sm-offset-2">
+					<div class="alert alert-info" role="alert">
+						<strong>No Tasks</strong>
+						<br>
+						Why don't you create one!
+					</div>
+				</div>
+			</div>
 		</section>
 	</section>
 </template>

@@ -8,6 +8,7 @@ export default class Projects {
   projects = [];
   newProjectName = null;
   isEditing = false;
+  isWarning = false;
   editingProject = null;
 
   constructor( pouch ) {
@@ -33,7 +34,7 @@ export default class Projects {
   		});
 
   		if( projExists ) {
-  			alert('A project with that name already exists');
+  			this.warn();
   		} else {
   			this.projects.push( proj );
   			this.newProjectName = null;
@@ -42,9 +43,16 @@ export default class Projects {
   	});
   }
 
+  warn() {
+    this.isWarning = true;
+  }
+
+  cancelWarn() {
+    this.isWarning = false;
+  }
+
   updateProject( project ) {
   	this.pouch.updateProject( project ).then( proj => {
-  		console.log( 'updated project' );
   		this.editingProject = null;
   		this.isEditing = false;
   	});
@@ -61,13 +69,13 @@ export default class Projects {
   }
 
   removeProject( project ) {
-  	let sure = window.confirm('Are you sure you want to delete this project?');
-  	if( sure ) {
+  	//let sure = window.confirm('Are you sure you want to delete this project?');
+  	//if( sure ) {
 	  	this.pouch.removeProject( project ).then( proj => {
 	  		this.projects = this.projects.filter( p => {
 	  			return p._id !== project._id;
 	  		});
 	  	});
-  	}
+  	//}
   }
 }

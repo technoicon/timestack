@@ -24,6 +24,23 @@
 			</div>
 		</template>
 	</modal>
+
+	<modal visible.two-way="isWarning">
+		<template replace-part="modal-content">
+			<br>
+			<div class="alert alert-warning" role="alert">
+				<strong>A project with that name already exists</strong>
+				<br>
+				Please provide a different project name
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-12" style="text-align:right;">
+					<button click.delegate="cancelWarn()" type="button" class="btn btn-primary">OK</button>
+				</div>
+			</div>
+		</template>
+	</modal>
 	
 	<compose view="components/page-header/page-header.html"></compose>
 
@@ -67,6 +84,15 @@
 								</div>
 							</div>
 						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row" if.bind="!projects || projects.length === 0">
+				<div class="col-sm-8 col-sm-offset-2">
+					<div class="alert alert-info" role="alert">
+						<strong>No Projects</strong>
+						<br>
+						Why don't you add one!
 					</div>
 				</div>
 			</div>
