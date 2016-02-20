@@ -120,7 +120,57 @@ div.au-stagger {
   text-align:right;
 }
 
+.time-hover-tools {
+  display:none;
+  position: absolute;
+  right: 10px;
+  top: 0px;
+}
 
+a:hover > .time-hover-tools {
+  display: block;
+}
+
+.time-hover-tools > div {
+  color: #333;
+  display: inline-block;
+  padding: 3px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.time-hover-tools > div:hover {
+  color: #ddd;
+  background-color: #333;
+}
+
+.time-modal-container {
+  position: absolute;
+  background-color: rgba(0,0,0,0.7);
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 1000;
+  text-align:center;
+  padding: 15%;
+}
+
+.time-modal-content {
+  padding: 15px;
+  z-index: 10001;
+  background-color: #fff;
+}
+
+.time-modal-close {
+  color: grey;
+  text-align:right;
+}
+
+.time-modal-close > i:hover {
+  color: #ccc;
+  cursor:pointer;
+}
 
 
 
