@@ -1,0 +1,122 @@
+<template>
+	<require from="components/modal/modal"></require>
+	<require from="components/color-box/color-box"></require>
+
+	<modal visible.two-way="isEditing">
+		<template replace-part="modal-content">
+			<div class="row">
+				<div class="col-sm-12">
+					<label for="name">Name</label>
+					<div class="input-group" style="width:100%;">
+						<input type="text" class="form-control" id="name" value.two-way="editingProject.name">
+					</div>
+					<br>
+					<label for="desc">Description</label>
+					<div class="input-group" style="width:100%;">
+						<textarea type="text" class="form-control" id="desc" value.two-way="editingProject.desc"></textarea>
+					</div>
+					<br>
+					<label for="color">Color</label>
+					<div class="input-group" style="width:100%;">
+						<div style="width:100%;text-align:center;">
+							<div style="margin:auto;" class="time-color-box" css="background-color:${editingProject.color}"></div>
+						</div>
+						<button click.delegate="updateColor(editingProject)" id="color" type="button" class="btn btn-default">Change Color</button>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-12" style="text-align:right;">
+					<button click.delegate="updateProject(editingProject)" type="button" class="btn btn-primary">OK</button>
+				</div>
+			</div>
+		</template>
+	</modal>
+
+	<modal visible.two-way="isWarning">
+		<template replace-part="modal-content">
+			<br>
+			<div class="alert alert-warning" role="alert">
+				<strong>A project with that name already exists</strong>
+				<br>
+				Please provide a different project name
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-12" style="text-align:right;">
+					<button click.delegate="cancelWarn()" type="button" class="btn btn-primary">OK</button>
+				</div>
+			</div>
+		</template>
+	</modal>
+	
+	<compose view="components/page-header/page-header.html"></compose>
+
+  	<section>
+  		<section>
+		  	<div class="row">
+					<div class="col-sm-6">
+						<h4>${item_type}</h4>
+					</div>
+				<div class="col-sm-6">
+					<div class="input-group">
+						<input class="form-control" placeholder="New ${item_type}..." type="text" value.bind="newProjectName">
+							<span class="input-group-btn">
+								<button class="btn btn-primary" type="button" click.delegate="createProject( newProjectName )">
+									Create
+								</button>
+							</span>
+						</input>
+					</div>
+				</div>
+			</div>
+  		</section>
+
+  		<section style="margin-top:30px;">
+  			<div class="row">
+  				<div class="col-sm-12">
+					<div class="list-group">
+						<a repeat.for="project of projects" href="javascript:;" class="list-group-item">
+							<div class="row">
+								<div class="col-sm-1">
+									<div style="margin:auto;" class="time-color-box" css="background-color:${project.color}">
+										<span if.bind="project.num_tasks > 0">
+											${project.num_tasks}
+										</span>
+									</div>
+								</div>
+								<div class="col-sm-11">
+									<h4 class="list-group-item-heading">
+										${project.name}
+									</h4>
+									<p class="list-group-item-text">
+										${project.desc}
+									</p>
+									<div class="time-hover-tools">
+										<div click.delegate="editProject( project )">
+											Edit
+										</div>
+										<div click.delegate="removeProject( project )">
+											Remove
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row" if.bind="!projects || projects.length === 0">
+				<div class="col-sm-8 col-sm-offset-2">
+					<div class="alert alert-info" role="alert">
+						<strong>No Projects</strong>
+						<br>
+						Why don't you add one!
+					</div>
+				</div>
+			</div>
+  		</section>
+
+  	</section>
+</template>
