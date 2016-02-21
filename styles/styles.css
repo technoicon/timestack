@@ -223,11 +223,23 @@ a:hover .time-hover-tools {
 
 .page-host {
   background: url('/images/bg.png');
-  background-size: cover
+  background-size: cover;
 }
 
 .time-landing-content {
   color: #eee;
+  font-size: 5em;
+  width: 100%;
+  text-align: center;
+  margin-top: 15%;
+}
+
+.time-landing-tagline {
+  font-size: 0.75em;
+}
+
+.time-landing-start {
+  font-size: 0.4em !important;
 }
 
 
