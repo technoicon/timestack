@@ -43,14 +43,10 @@ export default class Track {
     this.pouch.getSettings().then( s => {
       if( s ) {
         this.settings = s;
-        console.log('got settings');
-        console.log( this.settings );
       } else {
         this.pouch.createSettings().then( created => {
           
           this.settings = created;
-          console.log('set settings');
-          console.log( this.settings );
         });
       }
     });
@@ -130,6 +126,10 @@ export default class Track {
   		this.tasks.push( task );
   		this.editingTask = null;
   		this.isCreating = false;
+
+      if( this.settings && this.settings.auto_start ) {
+        this.start( task );
+      }
   	});
   }
 
@@ -212,6 +212,9 @@ export default class Track {
 
   	let timer = window.setInterval( () => {
   		this.timers[task._id].seconds += 1;
+
+      this.timers[task._id].total = this.getTotalTime( task );
+
   	}, 1000 );
   	this.timers[task._id].timer = timer;
   }
@@ -221,4 +224,44 @@ export default class Track {
   		window.clearInterval( this.timers[task._id].timer );
   	}
   }
+
+  getTotalTime( task ) {
+    let ret = 0;
+    let runningInterval = 0;
+
+    try {
+      runningInterval = this.timers[task._id].seconds;
+    } catch(ex) {/* shhh...i'm in a hurry */}
+
+    let previousIntervals = 0;
+
+    if( task.intervals ) {
+      task.intervals.forEach( i => {
+        if( i.start && i.stop ) {
+          previousIntervals += Math.floor((i.stop - i.start) / 1000);
+        }
+      });
+    }
+
+    return runningInterval + previousIntervals;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

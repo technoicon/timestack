@@ -55,7 +55,7 @@
 
 	<modal visible.two-way="isEditing">
 		<template replace-part="modal-content">
-			<div class="row">
+			<div class="row" style="overflow-y:scroll;max-height:500px;">
 				<div class="col-sm-12">
 					<label for="name">Name</label>
 					<div class="input-group" style="width:100%;">
@@ -69,10 +69,6 @@
 					<br>
 					<label for="desc">Project</label>
 					<div class="input-group" style="width:100%;">
-<!-- 						<select value.bind="editingTask.project_id" style="width:100%;">
-						    <option>Select A Project</option>
-						    <option repeat.for="project of projects" value.bind="project._id">${project.name}</option>
-						</select> -->
 
 						<div class="dropdown" id="project">
 							<button style="width:100%" class="btn btn-default dropdown-toggle" type="button" id="projectMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -88,8 +84,10 @@
 								<li repeat.for="project of projects"><a href="javascript:;" click.delegate="setProject(editingTask,project)">${project.name}</a></li>
 							</ul>
 						</div>
-
 					</div>
+					<br>
+					<label> Intervals </label>
+					<compose view="components/current-task/current-task-editing.html"></compose>
 				</div>
 			</div>
 			<br>
@@ -104,7 +102,7 @@
 		</template>
 	</modal>
 
-	<section style="margin-top:30px;">
+	<div class="container" style="margin-top: 30px;">
 		<div if.bind="tasks && tasks.length >= 1" class="panel panel-default">
 			<div class="panel-heading">
 				<h3 class="panel-title">
@@ -112,11 +110,11 @@
 				</h3>
 			</div>
 			<div class="panel-body">
-				<section>
+				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-12">
 							<div if.bind="taskInProgress">
-								${taskInProgress.name}
+								<compose view="components/current-task/current-task.html"></compose>
 							</div>
 							<div if.bind="!taskInProgress">
 								<div class="col-sm-12">
@@ -129,10 +127,38 @@
 							</div>
 						</div>
 					</div>
-				</section>
+				</div>
 			</div>
 		</div>
 
+		<div if.bind="tasks && tasks.length >= 1">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								Day by Task
+							</h3>
+						</div>
+						<div class="panel-body">
+							body
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								Day by Project
+							</h3>
+						</div>
+						<div class="panel-body">
+							body
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -140,11 +166,6 @@
 				  	<div class="row">
 						<div class="col-sm-6">
 							<span>${item_type}s</span>
-<!-- 							<div class="checkbox">
-								<label>
-									<input type="checkbox" checked.two-way="showCompleted"> Show Completed
-								</label>
-							</div> -->
 						</div>
 						<div class="col-sm-6" style="text-align:right;">
 							<button class="btn btn-primary" type="button" click.delegate="createTask()">
@@ -156,16 +177,16 @@
 				</h3>
 			</div>
 			<div class="panel-body">
-				<section>
+				<div class="container-fluid">
 		  			<div class="row">
 		  				<div class="col-sm-12">
 							<div class="list-group">
-								<a repeat.for="task of tasks" href="javascript:;" click.delegate="editTask( task )" class="list-group-item">
+								<a repeat.for="task of tasks" href="javascript:;" if.bind="task._id !== taskInProgress._id" click.delegate="editTask( task )" class="list-group-item">
 									<div class="row">
 										<div class="col-sm-1">
 											<color-box project_id.bind="task.project_id"></color-box>
 										</div>
-										<div class="col-sm-8">
+										<div class="col-sm-5">
 											<h4 class="list-group-item-heading">
 												${task.name}
 											</h4>
@@ -174,19 +195,24 @@
 											</p>
 										</div>
 										<div class="col-sm-2">
+											<span>
+												<strong>Total</strong>: ${getTotalTime(task) | timeFormat}
+											</span>
+										</div>
+										<div class="col-sm-2">
 											<div class="time-timer-buttons" if.bind="!task.completed">
 												<div if.bind="task.status === 'paused'">
 													<div click.delegate="start(task)" class="btn btn-success">Start</div>
 												</div>
 												<div if.bind="task.status === 'running'">
-													<div style="display:inline-block;margin-right: 15px;">
+													<div>
 														${timers[task._id].seconds | timeFormat }
 													</div>
-													<div style="display:inline-block;" click.delegate="stop(task)" class="btn btn-danger">Stop</div>
+													<div click.delegate="stop(task)" class="btn btn-danger">Stop</div>
 												</div>
 											</div>
 										</div>
-										<div class="col-sm-1">
+										<div class="col-sm-2">
 											<div if.bind="!task.completed">
 												<div class="btn btn-default" click.delegate="completeTask(task)">Done</div>
 											</div>
@@ -205,8 +231,8 @@
 							</div>
 						</div>
 					</div>
-				</section>
+				</div>
 			</div>
 		</div>
-	</section>
+	</div>
 </template>

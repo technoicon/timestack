@@ -21,6 +21,8 @@ export class ColorBox {
 	}
 
 	setColor( id ) {
+		if( !id ) return;
+
 		this.pouch.getProject( id ).then( result => {
 			this.project = result;
 		});

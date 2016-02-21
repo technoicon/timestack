@@ -52,7 +52,7 @@
 		</template>
 	</modal>
 
-  	<section style="margin-top:30px;">
+  	<div class="container" style="margin-top:30px;">
   		<div class="panel panel-default">
   			<div class="panel-heading">
   				<h3 class="panel-title">
@@ -64,7 +64,7 @@
   				</h3>
   			</div>
   			<div class="panel-body">
-		  		<section>
+		  		<div>
 		  			<div class="row">
 						<div class="col-sm-12">
 							<div class="input-group">
@@ -91,21 +91,18 @@
 												</span>
 											</div>
 										</div>
-										<div class="col-sm-11">
+										<div class="col-sm-9">
 											<h4 class="list-group-item-heading">
 												${project.name}
 											</h4>
 											<p class="list-group-item-text">
 												${project.desc}
 											</p>
-		<!-- 									<div class="time-hover-tools">
-												<div click.delegate="editProject( project )">
-													Edit
-												</div>
-												<div click.delegate="removeProject( project )">
-													Remove
-												</div>
-											</div> -->
+										</div>
+										<div class="col-sm-2">
+											<div style="color:#bbb;" if.bind="settings.default_project === project._id">
+												Default
+											</div>
 										</div>
 									</div>
 								</a>
@@ -113,7 +110,7 @@
 						</div>
 					</div>
 					<div class="row" if.bind="!projects || projects.length === 0">
-						<div class="col-sm-8 col-sm-offset-2">
+						<div class="col-sm-12">
 							<div class="alert alert-info" role="alert">
 								<strong>No Projects</strong>
 								<br>
@@ -121,8 +118,8 @@
 							</div>
 						</div>
 					</div>
-		  		</section>
+		  		</div>
   			</div>
   		</div>
-  	</section>
+  	</div>
 </template>

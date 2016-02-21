@@ -21,6 +21,16 @@ export default class Projects {
   }
 
   init() {
+    this.pouch.getSettings().then( s => {
+      if( s ) {
+        this.settings = s;
+      } else {
+        this.pouch.createSettings().then( created => {
+          this.settings = created;
+        });
+      }
+    });
+
     Promise.all( [this.pouch.getProjects(), this.pouch.getTasks()] )
       .then( (result) => {
         result[0].forEach( p => {
