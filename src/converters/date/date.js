@@ -4,6 +4,6 @@ export class DateFormatValueConverter {
 		if (!ms) {
 			return '...';
 		}
-		return moment(ms).format('dddd MMM Qo YYYY h:mm a');
+		return moment(ms).format('dddd MMM Do YYYY h:mm a');
 	}
 }
