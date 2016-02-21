@@ -1,0 +1,1 @@
+module.exports = require("npm:localstorage-memory@1.0.2/lib/localstorage-memory");

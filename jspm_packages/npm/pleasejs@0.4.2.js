@@ -1,0 +1,1 @@
+module.exports = require("npm:pleasejs@0.4.2/dist/Please");

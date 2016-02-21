@@ -1,0 +1,1 @@
+module.exports = require("npm:has-localstorage@1.0.1/lib/has-localstorage");

@@ -1,0 +1,1 @@
+module.exports = require("npm:pull-core@1.0.0/index");

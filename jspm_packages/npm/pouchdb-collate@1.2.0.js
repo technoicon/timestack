@@ -1,0 +1,1 @@
+module.exports = require("npm:pouchdb-collate@1.2.0/lib/index");

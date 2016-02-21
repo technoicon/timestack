@@ -1,0 +1,1 @@
+module.exports = require("npm:d64@1.0.0/index");

@@ -1,0 +1,1 @@
+module.exports = require("npm:functional-red-black-tree@1.0.1/rbtree");

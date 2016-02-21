@@ -1,0 +1,1 @@
+module.exports = require("npm:levelup@1.3.1/lib/levelup");

@@ -1,0 +1,8 @@
+MultipleErrors: /Users/appleskin/.jspm/packages/npm/pouchdb@5.2.1/tonic-example.js:13:22: Semi-colon expected
+/Users/appleskin/.jspm/packages/npm/pouchdb@5.2.1/tonic-example.js:19:7: Semi-colon expected
+/Users/appleskin/.jspm/packages/npm/pouchdb@5.2.1/tonic-example.js:26:19: Unexpected token db
+/Users/appleskin/.jspm/packages/npm/pouchdb@5.2.1/tonic-example.js:26:34: Semi-colon expected
+/Users/appleskin/.jspm/packages/npm/pouchdb@5.2.1/tonic-example.js:26:34: Unexpected token )
+/Users/appleskin/.jspm/packages/npm/pouchdb@5.2.1/tonic-example.js:29:18: Semi-colon expected
+/Users/appleskin/.jspm/packages/npm/pouchdb@5.2.1/tonic-example.js:37:7: Semi-colon expected
+/Users/appleskin/.jspm/packages/npm/pouchdb@5.2.1/tonic-example.js:49:7: Semi-colon expected
