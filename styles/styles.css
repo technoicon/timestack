@@ -159,6 +159,7 @@ a:hover .time-hover-tools {
   padding: 15px;
   z-index: 10001;
   background-color: #fff;
+  text-align:left;
 }
 
 .time-modal-close {
@@ -189,6 +190,53 @@ a:hover .time-hover-tools {
 .time-timer-buttons {
   display: inline-block;
 }
+
+.well, .input-group {
+  width: 100%;
+}
+
+.input-group button {
+  text-align: left;
+}
+
+.time-setting-item {
+  margin-bottom: 25px;
+}
+
+.time-hover-show-p:hover p {
+  display:block !important;
+}
+
+.time-landing-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  /*background: url('/src/images/bg.png');*/
+  /*background-size: cover;*/
+}
+
+.panel {
+  background-color: rgba(255,255,255,0.4) !important;
+}
+
+.page-host {
+  background: url('/images/bg.png');
+  background-size: cover
+}
+
+.time-landing-content {
+  color: #eee;
+}
+
+
+
+
+
+
+
+
 
 
 

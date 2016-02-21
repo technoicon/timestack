@@ -2,6 +2,7 @@ import {Pouch} from 'services/pouch/pouch.js';
 import {inject} from 'aurelia-framework';
 import {computedFrom} from 'aurelia-binding';
 import * as UUID from 'node-uuid';
+import {bindable} from 'aurelia-framework';
 
 @inject(Pouch)
 export default class Track {
@@ -15,6 +16,7 @@ export default class Track {
   timers = {};
   settings = null;
   taskInProgress = null;
+  @bindable showCompleted = false;
 
   constructor( pouch ) {
   	this.pouch = pouch;
@@ -24,7 +26,7 @@ export default class Track {
   	this.projects = [];
   	this.tasks = [];
 
-  	this.pouch.getTasks().then( tasks => {
+  	this.pouch.getTasks( this.showCompleted ).then( tasks => {
 		tasks.forEach( t => {
   			this.tasks.push( t.doc );	
   		});
@@ -56,6 +58,10 @@ export default class Track {
 
   activate() {
   	this.init();
+  }
+
+  showCompletedChanged() {
+    this.init();
   }
 
   startTimersOnRunningTasks() {
@@ -114,6 +120,8 @@ export default class Track {
   		this.tasks = this.tasks.filter( p => {
   			return p._id !== task._id;
   		});
+      this.isEditing = false;
+      this.editingTask = null;
   	});
   }
 
@@ -131,6 +139,17 @@ export default class Track {
   		this.isEditing = false;
   		return t;
   	});
+  }
+
+  completeTask( task ) {
+    task.completed = true;
+    this.stop( task ).then( t => {
+      if( !this.showCompleted ) {
+        this.tasks = this.tasks.filter( tsk => {
+            return tsk._id !== task._id;
+        });
+      }
+    });
   }
 
   start( task ) {
@@ -160,7 +179,7 @@ export default class Track {
   	
   	let lastInterval = task.intervals[ task.intervals.length - 1 ];
 
-  	if( !lastInterval.stop ) {
+  	if( lastInterval && !lastInterval.stop ) {
   		lastInterval.stop = Date.now();
   	}
 

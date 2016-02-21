@@ -32,12 +32,19 @@ export class App {
   configureRouter(config, router) {
     config.title = 'TimeStack';
     config.map([
+      {
+        route: [''],
+        name: 'landing',
+        moduleId: 'pages/landing/landing',
+        nav: false,
+        title: 'Landing'
+      },
       { 
-      	route: ['', 'welcome'], 
-      	name: 'welcome',
-      	moduleId: 'pages/welcome/welcome', 
-      	nav: true, 
-      	title: 'Welcome' 
+        route: ['projects'],
+        name: 'projects',
+        moduleId: 'pages/projects/projects',
+        nav: true,
+        title: 'Projects'
       },
       { 
       	route: ['track'], 
@@ -45,13 +52,6 @@ export class App {
       	moduleId: 'pages/track/track',
       	nav: true,
       	title: 'Track' 
-      },
-      { 
-      	route: ['projects'],
-      	name: 'projects',
-      	moduleId: 'pages/projects/projects',
-      	nav: true,
-      	title: 'Projects'
       },
       { 
       	route: ['history'],
