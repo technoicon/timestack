@@ -172,11 +172,6 @@ a:hover .time-hover-tools {
 }
 
 .time-color-box {
-/*  position: absolute;
-  left: 0px;
-  top: -10px;
-  bottom: -10px;
-  width: 25px;*/
   min-width: 25px;
   min-height: 25px;
 
@@ -185,6 +180,10 @@ a:hover .time-hover-tools {
 
   border-radius: 25px;
   background-color: #000;
+
+  text-align:center;
+  color: #fff;
+  padding-top: 3px;
 }
 
 .time-timer-buttons {

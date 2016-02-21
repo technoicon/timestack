@@ -80,7 +80,11 @@
 						<a repeat.for="project of projects" href="javascript:;" class="list-group-item">
 							<div class="row">
 								<div class="col-sm-1">
-									<div style="margin:auto;" class="time-color-box" css="background-color:${project.color}"></div>
+									<div style="margin:auto;" class="time-color-box" css="background-color:${project.color}">
+										<span if.bind="project.num_tasks > 0">
+											${project.num_tasks}
+										</span>
+									</div>
 								</div>
 								<div class="col-sm-11">
 									<h4 class="list-group-item-heading">

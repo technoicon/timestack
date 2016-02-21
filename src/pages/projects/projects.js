@@ -13,16 +13,34 @@ export default class Projects {
   editingProject = null;
 
   constructor( pouch ) {
-  	this.pouch = pouch;
-  	this.init();
+  	this.pouch = pouch;	
+  }
+
+  activate() {
+    this.init();
   }
 
   init() {
-  	this.pouch.getProjects().then( projects => {
-  		projects.forEach( p => {
-  			this.projects.push( p.doc );
-  		});
-  	});
+    Promise.all( [this.pouch.getProjects(), this.pouch.getTasks()] )
+      .then( (result) => {
+        result[0].forEach( p => {
+          p.doc.num_tasks = 0;
+          this.projects.push( p.doc );
+        });
+
+        result[1].forEach( t => {
+          this.incrementTaskCounter( t.doc );
+        });
+      });
+  }
+
+  incrementTaskCounter( task ) {
+    for( let i=0; i<this.projects.length; i++ ) {
+      if( this.projects[i]._id === task.project_id ) {
+        this.projects[i].num_tasks += 1;
+        break;
+      }
+    }
   }
 
   createProject( name ) {

@@ -1,6 +1,7 @@
 import {Pouch} from 'services/pouch/pouch.js';
 import {inject} from 'aurelia-framework';
-import {computedFrom} from 'aurelia-binding'
+import {computedFrom} from 'aurelia-binding';
+import * as UUID from 'node-uuid';
 
 @inject(Pouch)
 export default class Track {
@@ -12,6 +13,7 @@ export default class Track {
   tasks = [];
   projects = [];
   timers = {};
+  settings = null;
   taskInProgress = null;
 
   constructor( pouch ) {
@@ -35,6 +37,21 @@ export default class Track {
   			this.projects.push( p.doc );
   		});
   	});
+
+    this.pouch.getSettings().then( s => {
+      if( s ) {
+        this.settings = s;
+        console.log('got settings');
+        console.log( this.settings );
+      } else {
+        this.pouch.createSettings().then( created => {
+          
+          this.settings = created;
+          console.log('set settings');
+          console.log( this.settings );
+        });
+      }
+    });
   }
 
   activate() {
@@ -56,13 +73,25 @@ export default class Track {
   }
 
   getBlankTask() {
-  	return {
+  	let pid = null;
+
+    if( this.settings.default_project ) {
+      pid = this.settings.default_project;
+    }
+
+    return {
   		name: null,
   		desc: null,
   		project_id: null,
   		start_time: null,
-  		end_time: null
-  	}
+  		end_time: null,
+      completed: false,
+  	  project_id: pid
+    }
+  }
+
+  setProject( task, project ) {
+    task.project_id = project._id;
   }
 
   createTask() {
@@ -110,6 +139,7 @@ export default class Track {
 
 	  	task.status = 'running';
 	  	let interval = {
+        id: UUID.v4(),
 	  		start: Date.now(),
 	  		stop: null
 	  	};

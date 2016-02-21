@@ -2,6 +2,7 @@
 	<require from="components/modal/modal"></require>
 	<require from="components/color-box/color-box"></require>
 	<require from="converters/time/time.js"></require>
+	<require from="converters/substring/substring.js"></require>
 
 	<modal visible.two-way="isCreating">
 		<template replace-part="modal-content">
@@ -17,12 +18,28 @@
 						<textarea type="text" class="form-control" id="desc" value.two-way="editingTask.desc"></textarea>
 					</div>
 					<br>
-					<label for="desc">Project</label>
+					<label for="project">Project</label>
 					<div class="input-group" style="width:100%;">
-						<select value.bind="editingTask.project_id" style="width:100%;">
+<!-- 						<select value.bind="editingTask.project_id" style="width:100%;">
 						    <option>Select A Project</option>
 						    <option repeat.for="project of projects" value.bind="project._id">${project.name}</option>
-						</select>
+						</select> -->
+
+						<div class="dropdown" id="project">
+							<button style="width:100%" class="btn btn-default dropdown-toggle" type="button" id="projectMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								<span if.bind="editingTask.project_id">
+									${editingTask.project_id | substringFormat:8}
+								</span>
+								<span if.bind="!editingTask.project_id">
+									Select a Project
+								</span>
+								<span class="caret"></span>
+							</button>
+							<ul style="width: 100%" class="dropdown-menu" aria-labelledby="projectMenu">
+								<li repeat.for="project of projects"><a href="javascript:;" click.delegate="setProject(editingTask,project)">${project.name}</a></li>
+							</ul>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -52,10 +69,26 @@
 					<br>
 					<label for="desc">Project</label>
 					<div class="input-group" style="width:100%;">
-						<select value.bind="editingTask.project_id" style="width:100%;">
+<!-- 						<select value.bind="editingTask.project_id" style="width:100%;">
 						    <option>Select A Project</option>
 						    <option repeat.for="project of projects" value.bind="project._id">${project.name}</option>
-						</select>
+						</select> -->
+
+						<div class="dropdown" id="project">
+							<button style="width:100%" class="btn btn-default dropdown-toggle" type="button" id="projectMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								<span if.bind="editingTask.project_id">
+									${editingTask.project_id | substringFormat:8}
+								</span>
+								<span if.bind="!editingTask.project_id">
+									Select a Project
+								</span>
+								<span class="caret"></span>
+							</button>
+							<ul style="width: 100%" class="dropdown-menu" aria-labelledby="projectMenu">
+								<li repeat.for="project of projects"><a href="javascript:;" click.delegate="setProject(editingTask,project)">${project.name}</a></li>
+							</ul>
+						</div>
+
 					</div>
 				</div>
 			</div>

@@ -1,3 +1,33 @@
+/*
+
+active task
+  with intervals display
+
+pie chart by task
+pie chart by project
+
+charts by day/week/month/all time
+
+settings
+- start task upon creation
+- default project
+- remove tasks associated with project when removing project
+
+- prepopulate example data
+- clear all data
+
+analytics for events and errors
+
+splash instead of welcome page
+
+
+
++ completed property on tasks
++ ids should be UUIDs
++ map for intervals with uuids for each start/stop so they can be edited
+
+*/
+
 export class App {
   configureRouter(config, router) {
     config.title = 'TimeStack';

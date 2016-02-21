@@ -1,6 +1,12 @@
 import * as UUID from 'node-uuid';
 import * as Please from 'pleasejs';
 
+/*
+	TODO: 
+	- split out into discrete services
+	- properly query types
+*/
+
 export class Pouch {
 	constructor() {
 		this.db = null;
@@ -92,13 +98,20 @@ export class Pouch {
 						TASKS
 
 	********************************************************************/
-	getTasks() {
+	getTasks( include_completed ) {
 		return this.db.allDocs({include_docs: true}).then( result => {
 			return result.rows.filter( row => {
 				if( !row.doc.type ) {
 					return false;
 				} else {
-					return row.doc.type === 'task';
+					let isTask = row.doc.type === 'task';
+					let completed = row.doc.completed;
+
+					if( include_completed ) {
+						return isTask;
+					} else {
+						return isTask && !completed;
+					}
 				}
 			});
 		});
@@ -130,13 +143,14 @@ export class Pouch {
 		return this.db.get('task-' + name).catch( err => {
 		  	if (err.status === 404) {
 		    	return {	
-		      		_id: 'task-' + name,
+		      		_id: UUID.v4(),
 		      		name: name,
 		      		type: 'task',
 		      		desc: desc,
 		      		status: 'paused',
 		      		created_at: Date.now(),
 		      		project_id: project_id,
+		      		completed: false,
 		      		intervals: []
 		    	};
 		  	} else {
@@ -154,9 +168,61 @@ export class Pouch {
 
 	getTask( id ) {
 		return this.db.get(id).then( result => {
-
+			return result;
 		}).catch( error => {
 			console.error( error );
 		});
 	}
+
+	/*******************************************************************
+
+						SETTINGS
+
+	********************************************************************/
+
+	getSettings() {
+		return this.db.get('settings').then( result => {
+			return result;
+		}).catch( error => {
+			console.warn('Settings do not exist yet');
+
+		});
+	}
+
+	updateSettings( settings ) {
+		return this.db.get('settings').then( settingsDoc => {
+			settings._rev = settingsDoc._rev;
+			settings._id = 'settings';
+		  	return this.db.put( settings ).then( result => {
+		  		return settings;
+		  	});
+		}).catch( err => {
+			console.error( err );
+		  	return null;
+		});
+	}
+
+	createSettings() {
+		return this.db.get('settings').catch( err => {
+		  	// default settings
+		  	if (err.status === 404) {
+		    	return {	
+		      		_id: 'settings',
+		      		auto_start: false,
+		      		default_project: null,
+		      		remove_related: true
+		    	};
+		  	} else {
+		    	throw err;
+		  	}
+		}).then( set => {
+		  	return this.db.put( set ).then( result => {
+		  		return set;
+		  	});
+		}).catch( err => {
+			console.error( err );
+		  	return null;
+		});
+	}
+
 }
