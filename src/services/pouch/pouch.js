@@ -23,6 +23,10 @@ export class Pouch {
 		});
 	}
 
+	nuke() {
+		return this.db.destroy();
+	}
+
 	getUUID() {
 		return UUID.v4();
 	}

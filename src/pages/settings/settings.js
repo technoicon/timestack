@@ -89,4 +89,9 @@ export class Settings {
 		});
 	}
 
+	deleteAll() {
+		this.pouch.nuke().then( done => {
+			window.location.href = '/';
+		});
+	}
 }
