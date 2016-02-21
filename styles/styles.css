@@ -171,6 +171,25 @@ a:hover .time-hover-tools {
   cursor:pointer;
 }
 
+.time-color-box {
+/*  position: absolute;
+  left: 0px;
+  top: -10px;
+  bottom: -10px;
+  width: 25px;*/
+  min-width: 25px;
+  min-height: 25px;
+
+  max-width: 25px;
+  max-height: 25px;
+
+  border-radius: 25px;
+  background-color: #000;
+}
+
+.time-timer-buttons {
+  display: inline-block;
+}
 
 
 

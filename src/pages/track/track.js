@@ -11,6 +11,8 @@ export default class Track {
   editingTask = null;
   tasks = [];
   projects = [];
+  timers = {};
+  taskInProgress = null;
 
   constructor( pouch ) {
   	this.pouch = pouch;
@@ -21,9 +23,11 @@ export default class Track {
   	this.tasks = [];
 
   	this.pouch.getTasks().then( tasks => {
-  		tasks.forEach( t => {
-  			this.tasks.push( t.doc );
+		tasks.forEach( t => {
+  			this.tasks.push( t.doc );	
   		});
+
+  		this.startTimersOnRunningTasks();
   	});
 
   	this.pouch.getProjects().then( projects => {
@@ -35,6 +39,20 @@ export default class Track {
 
   activate() {
   	this.init();
+  }
+
+  startTimersOnRunningTasks() {
+  	this.tasks.forEach( t => {
+  		if( t.status === 'running' ) {
+  			this.initRunningTimer( t );
+  		}
+  	});
+  }
+
+  initRunningTimer( task ) {
+  	let elapsed = Math.floor((Date.now() - task.intervals[ task.intervals.length - 1 ].start) / 1000);
+  	this.addTimer( task, elapsed );
+    this.taskInProgress = task;
   }
 
   getBlankTask() {
@@ -79,13 +97,79 @@ export default class Track {
   }
 
   updateTask( task ) {
-  	this.pouch.updateTask( task ).then( t => {
+  	return this.pouch.updateTask( task ).then( t => {
   		this.editingTask = null;
   		this.isEditing = false;
+  		return t;
   	});
   }
 
-  getProjectName( task ) {
-  	return task.project_id.substring(8);
+  start( task ) {
+  	this.stopAll().then( () => {
+	  	this.addTimer( task );
+
+	  	task.status = 'running';
+	  	let interval = {
+	  		start: Date.now(),
+	  		stop: null
+	  	};
+
+	  	task.intervals.push( interval );
+
+	  	this.updateTask( task ).then( t => {
+	  		task = t;
+	  		this.taskInProgress = task;
+	  	});
+  	});
+  }
+
+  stop( task ) {
+  	this.removeTimer( task );
+
+  	task.status = 'paused';
+  	
+  	let lastInterval = task.intervals[ task.intervals.length - 1 ];
+
+  	if( !lastInterval.stop ) {
+  		lastInterval.stop = Date.now();
+  	}
+
+  	return this.updateTask( task ).then( t => {
+  		task = t;
+      this.taskInProgress = null;
+  		return t;
+  	});
+  }
+
+  stopAll() {
+  	let proms = [];
+
+  	this.tasks.forEach( t => {
+  		proms.push( this.stop(t) );
+  	});
+
+  	return Promise.all( proms );
+  }
+
+  addTimer( task, elapsed ) {
+  	if( !elapsed ) {
+  		elapsed = 0;
+  	}
+
+  	this.timers[task._id] = {
+  		timer: null,
+  		seconds: elapsed
+  	};
+
+  	let timer = window.setInterval( () => {
+  		this.timers[task._id].seconds += 1;
+  	}, 1000 );
+  	this.timers[task._id].timer = timer;
+  }
+
+  removeTimer( task ) {
+  	if( this.timers[task._id] ) {
+  		window.clearInterval( this.timers[task._id].timer );
+  	}
   }
 }

@@ -1,9 +1,9 @@
 import * as UUID from 'node-uuid';
+import * as Please from 'pleasejs';
 
 export class Pouch {
 	constructor() {
 		this.db = null;
-
 		this.init();
 	}
 
@@ -33,7 +33,8 @@ export class Pouch {
 		    	return {	
 		      		_id: 'project-' + name,
 		      		name: name,
-		      		type: 'project'
+		      		type: 'project',
+		      		color: Please.make_color()[0]
 		    	};
 		  	} else {
 		    	throw err;
@@ -78,6 +79,13 @@ export class Pouch {
 		});
 	}
 
+	getProject( id ) {
+		return this.db.get(id).then( result => {
+			return result;
+		}).catch( error => {
+			console.error( error );
+		});
+	}
 
 	/*******************************************************************
 
@@ -115,6 +123,10 @@ export class Pouch {
 	}
 
 	createTask( name, desc, project_id, start_time ) {
+		if( !name ) {
+			throw new Error('New tasks require a name');
+		}
+
 		return this.db.get('task-' + name).catch( err => {
 		  	if (err.status === 404) {
 		    	return {	
@@ -122,8 +134,10 @@ export class Pouch {
 		      		name: name,
 		      		type: 'task',
 		      		desc: desc,
+		      		status: 'paused',
+		      		created_at: Date.now(),
 		      		project_id: project_id,
-		      		start_time: start_time
+		      		intervals: []
 		    	};
 		  	} else {
 		    	throw err;
@@ -135,6 +149,14 @@ export class Pouch {
 		}).catch( err => {
 			console.error( err );
 		  	return null;
+		});
+	}
+
+	getTask( id ) {
+		return this.db.get(id).then( result => {
+
+		}).catch( error => {
+			console.error( error );
 		});
 	}
 }

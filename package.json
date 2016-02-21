@@ -74,6 +74,7 @@
       "fetch": "github:github/fetch@^0.10.1",
       "font-awesome": "npm:font-awesome@^4.5.0",
       "node-uuid": "npm:node-uuid@^1.4.7",
+      "pleasejs": "npm:pleasejs@^0.4.2",
       "pouchdb": "npm:pouchdb@^5.2.1",
       "text": "github:systemjs/plugin-text@^0.0.3"
     },

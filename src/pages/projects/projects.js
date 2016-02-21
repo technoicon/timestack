@@ -1,5 +1,6 @@
 import {Pouch} from 'services/pouch/pouch.js';
 import {inject} from 'aurelia-framework';
+import * as Please from 'pleasejs';
 
 @inject(Pouch)
 export default class Projects {
@@ -25,6 +26,8 @@ export default class Projects {
   }
 
   createProject( name ) {
+    if( !name ) return;
+
   	this.pouch.createProject( name ).then( proj => {
   		let projExists = false;
   		this.projects.forEach( p => {
@@ -60,7 +63,11 @@ export default class Projects {
 
   editProject( project ) {
   	this.editingProject = project;
-	this.isEditing = true;
+	  this.isEditing = true;
+  }
+
+  updateColor( project ) {
+    project.color = Please.make_color()[0];
   }
 
   cancelEdit() {

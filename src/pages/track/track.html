@@ -1,5 +1,7 @@
 <template>
 	<require from="components/modal/modal"></require>
+	<require from="components/color-box/color-box"></require>
+	<require from="converters/time/time.js"></require>
 
 	<modal visible.two-way="isCreating">
 		<template replace-part="modal-content">
@@ -69,6 +71,26 @@
 	<compose view="components/page-header/page-header.html"></compose>
 
 	<section>
+
+		<section style="margin-top:30px;">
+			<div class="row">
+				<div class="col-sm-12">
+					<div if.bind="taskInProgress">
+						${taskInProgress.name}
+					</div>
+					<div if.bind="!taskInProgress">
+						<div class="col-sm-12">
+							<div class="alert alert-info" role="alert">
+								<strong>Nothing in progress</strong>
+								<br>
+								Start a task and get to work!
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
 		<section>
 		  	<div class="row">
 				<div class="col-sm-6">
@@ -89,20 +111,29 @@
 					<div class="list-group">
 						<a repeat.for="task of tasks" href="javascript:;" class="list-group-item">
 							<div class="row">
-								<div class="col-sm-2" style="text-align:center;">
-									<div class="timer-buttons">
-										<div>
-											Start Timer
-										</div>
-									</div>
+								<div class="col-sm-1">
+									<color-box project_id.bind="task.project_id"></color-box>
 								</div>
-								<div class="col-sm-10">
+								<div class="col-sm-8">
 									<h4 class="list-group-item-heading">
-										${task.name} - ${getProjectName(task)}
+										${task.name}
 									</h4>
-									<p>
+									<p class="list-group-item-text">
 										${task.desc}
 									</p>
+								</div>
+								<div class="col-sm-3">
+									<div class="time-timer-buttons">
+										<div if.bind="task.status === 'paused'">
+											<div click.delegate="start(task)" class="btn btn-success">Start</div>
+										</div>
+										<div if.bind="task.status === 'running'">
+											<div>
+												${timers[task._id].seconds | timeFormat }
+											</div>
+											<div click.delegate="stop(task)" class="btn btn-danger">Stop</div>
+										</div>
+									</div>
 									<div class="time-hover-tools">
 										<div click.delegate="editTask( task )">
 											Edit
@@ -118,7 +149,7 @@
 				</div>
 			</div>
 			<div class="row" if.bind="!tasks || tasks.length === 0">
-				<div class="col-sm-8 col-sm-offset-2">
+				<div class="col-sm-12">
 					<div class="alert alert-info" role="alert">
 						<strong>No Tasks</strong>
 						<br>
