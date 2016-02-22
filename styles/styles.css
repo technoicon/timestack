@@ -152,7 +152,7 @@ a:hover .time-hover-tools {
   right: 0px;
   z-index: 1000;
   text-align:center;
-  padding: 15%;
+  padding-top: 4%;
 }
 
 .time-modal-content {
@@ -160,6 +160,8 @@ a:hover .time-hover-tools {
   z-index: 10001;
   background-color: #fff;
   text-align:left;
+  max-width: 800px;
+  margin:auto;
 }
 
 .time-modal-close {
