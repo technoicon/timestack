@@ -31,7 +31,7 @@ export class Breakdown {
 		setTimeout( () => {
 			this.ctx = this.element.children[0].getContext("2d");
 			this.chart = new Chart(this.ctx).Doughnut(this.breakdown.items);
-		}, 150 );
+		}, 10 );
 	}
 
 	updateChart(ms) {
@@ -44,7 +44,7 @@ export class Breakdown {
 		}
 		setTimeout( () => {
 			this.init();
-		}, 150 );
+		}, 10 );
 	}
 
 	init() {

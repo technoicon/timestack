@@ -223,7 +223,7 @@ export default class Track {
   	let timer = window.setInterval( () => {
   		this.timers[task._id].seconds += 1;
 
-      this.timers[task._id].total = this.getTotalTime( task );
+      this.timers[task._id].total = this.getTotalTime( task, true );
 
   	}, 1000 );
   	this.timers[task._id].timer = timer;
@@ -235,7 +235,7 @@ export default class Track {
   	}
   }
 
-  getTotalTime( task ) {
+  getTotalTime( task, includeRunning ) {
     let ret = 0;
     let runningInterval = 0;
 
@@ -253,25 +253,10 @@ export default class Track {
       });
     }
 
-    return runningInterval + previousIntervals;
+    if( includeRunning ) {
+      return previousIntervals + runningInterval;
+    } else {
+      return previousIntervals;  
+    }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
