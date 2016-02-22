@@ -10,6 +10,7 @@ export class Breakdown {
 	@bindable type;
 	@bindable period;
 	@bindable day;
+	@bindable dayTasks;
 
 	constructor(pouch, element, events) {
 		this.pouch = pouch;
@@ -107,6 +108,9 @@ export class Breakdown {
 		};
 
 		tasks = this.filterTasksByDay( tasks, this.day );
+
+		this.dayTasks = tasks;
+
 		let totalTime = this.getTotalTime( tasks );
 
 		this.breakdown.time = totalTime;

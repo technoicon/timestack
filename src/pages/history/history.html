@@ -1,6 +1,9 @@
 <template>
 	<require from="components/pikaday/pikaday"></require>
+	<require from="components/color-box/color-box"></require>
 	<require from="components/breakdown/breakdown"></require>
+	<require from="converters/time/time.js"></require>
+	<require from="converters/substring/substring.js"></require>
 
   	<div class="container" style="margin-top:30px;">
 		<div class="panel panel-default">
@@ -25,14 +28,14 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							Tasks by Day
+							Tasks by Day (%)
 						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-sm-12">
-									<breakdown type.bind="'task'" period.bind="'day'" day.bind="selectedDay"></breakdown>
+									<breakdown type.bind="'task'" period.bind="'day'" day.bind="selectedDay" day-tasks.two-way="dayTasks"></breakdown>
 								</div>
 							</div>
 						</div>
@@ -43,7 +46,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							Projects by Day
+							Projects by Day (%)
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -51,6 +54,61 @@
 							<div class="row">
 								<div class="col-sm-12">
 									<breakdown type.bind="'project'" period.bind="'day'" day.bind="selectedDay"></breakdown>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+						  	<div class="row">
+								<div class="col-sm-6">
+									<span>Tasks (Including Completed)</span>
+								</div>
+							</div>
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="container-fluid">
+				  			<div class="row">
+				  				<div class="col-sm-12">
+									<div class="list-group">
+										<a repeat.for="task of dayTasks" href="javascript:;" class="list-group-item">
+											<div class="row">
+												<div class="col-sm-1">
+													<color-box project_id.bind="task.project_id"></color-box>
+												</div>
+												<div class="col-sm-5">
+													<h4 class="list-group-item-heading">
+														${task.name}
+													</h4>
+													<p class="list-group-item-text">
+														${task.desc}
+													</p>
+												</div>
+												<div class="col-sm-2">
+													<span>
+														<strong>Total</strong>: ${getTotalTime(task) | timeFormat}
+													</span>
+												</div>
+												<div class="col-sm-2">
+													<div class="time-timer-buttons">
+													</div>
+												</div>
+												<div class="col-sm-2">
+													<div if.bind="!task.completed">
+														<!-- <div class="btn btn-default" click.delegate="completeTask(task)">Done</div> -->
+													</div>
+												</div>
+											</div>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
