@@ -223,7 +223,13 @@ a:hover .time-hover-tools {
 
 .page-host {
   background: url('/images/bg.png');
-  background-size: cover;
+  background-size: fill;
+}
+
+.time-fancy-bg {
+  background: url('/images/bg.png');
+  background-size: fill;
+  background-repeat: none;
 }
 
 .time-landing-content {
