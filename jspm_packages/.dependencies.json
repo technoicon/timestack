@@ -1201,5 +1201,10 @@
     "aurelia-task-queue": "npm:aurelia-task-queue@^1.0.0-beta.1.1.0",
     "core-js": "npm:core-js@^2.0.3"
   },
-  "npm:pleasejs@0.4.2": {}
+  "npm:pleasejs@0.4.2": {},
+  "npm:chart.js@1.0.2": {
+    "child_process": "github:jspm/nodelibs-child_process@^0.1.0",
+    "fs": "github:jspm/nodelibs-fs@^0.1.0",
+    "systemjs-json": "github:systemjs/plugin-json@^0.1.0"
+  }
 }

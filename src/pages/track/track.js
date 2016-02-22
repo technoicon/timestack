@@ -3,8 +3,9 @@ import {inject} from 'aurelia-framework';
 import {computedFrom} from 'aurelia-binding';
 import * as UUID from 'node-uuid';
 import {bindable} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
 
-@inject(Pouch)
+@inject(Pouch, EventAggregator)
 export default class Track {
   heading = 'Track';
   item_type = 'Task';
@@ -17,9 +18,11 @@ export default class Track {
   settings = null;
   taskInProgress = null;
   @bindable showCompleted = false;
+  today = Date.now();
 
-  constructor( pouch ) {
+  constructor( pouch, events ) {
   	this.pouch = pouch;
+    this.events = events;
   }
 
   init() {
@@ -118,6 +121,7 @@ export default class Track {
   		});
       this.isEditing = false;
       this.editingTask = null;
+      this.events.publish('time-update-charts', {});
   	});
   }
 
@@ -172,8 +176,12 @@ export default class Track {
   	});
   }
 
-  stop( task ) {
+  stop( task, suppressSignal ) {
   	this.removeTimer( task );
+
+    if( !suppressSignal ) {
+      this.events.publish('time-update-charts', {});
+    }
 
   	task.status = 'paused';
   	
@@ -194,10 +202,13 @@ export default class Track {
   	let proms = [];
 
   	this.tasks.forEach( t => {
-  		proms.push( this.stop(t) );
+  		proms.push( this.stop(t, true) );
   	});
 
-  	return Promise.all( proms );
+  	return Promise.all( proms ).then( done => {
+      /* send update once */
+      this.events.publish('time-update-charts', {});
+    });
   }
 
   addTimer( task, elapsed ) {

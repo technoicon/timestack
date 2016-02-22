@@ -1,8 +1,12 @@
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {inject} from 'aurelia-framework';
 
+@inject(EventAggregator)
 export default class History {
   heading = 'History';
+  selectedDay = Date.now();
 
-  constructor() {
-
+  constructor(events) {
+  	this.events = events;
   }
 }

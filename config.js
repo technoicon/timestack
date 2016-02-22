@@ -12,6 +12,7 @@ System.config({
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },
+
   map: {
     "aurelia-animator-css": "npm:aurelia-animator-css@1.0.0-beta.1.1.0",
     "aurelia-binding": "npm:aurelia-binding@1.0.0-beta.1.1.3",
@@ -29,6 +30,7 @@ System.config({
     "babel": "npm:babel-core@5.8.35",
     "babel-runtime": "npm:babel-runtime@5.8.35",
     "bootstrap": "github:twbs/bootstrap@3.3.6",
+    "chart.js": "npm:chart.js@1.0.2",
     "core-js": "npm:core-js@2.1.0",
     "fetch": "github:github/fetch@0.10.1",
     "font-awesome": "npm:font-awesome@4.5.0",
@@ -432,6 +434,11 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2",
       "strip-ansi": "npm:strip-ansi@3.0.0",
       "supports-color": "npm:supports-color@2.0.0"
+    },
+    "npm:chart.js@1.0.2": {
+      "child_process": "github:jspm/nodelibs-child_process@0.1.0",
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:cipher-base@1.0.2": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
@@ -1177,4 +1184,4 @@ System.config({
       "stream": "github:jspm/nodelibs-stream@0.1.0"
     }
   }
-})
+});

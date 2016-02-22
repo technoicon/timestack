@@ -1,6 +1,7 @@
 <template>
 	<require from="components/modal/modal"></require>
 	<require from="components/color-box/color-box"></require>
+	<require from="components/breakdown/breakdown"></require>
 	<require from="converters/time/time.js"></require>
 	<require from="converters/substring/substring.js"></require>
 
@@ -137,11 +138,11 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								Day by Task
+								Today by Task (%)
 							</h3>
 						</div>
-						<div class="panel-body">
-							body
+						<div class="panel-body" style="text-align:center;">
+							<breakdown type.bind="'task'" period.bind="'day'" day.bind="today"></breakdown>
 						</div>
 					</div>
 				</div>
@@ -149,11 +150,11 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								Day by Project
+								Today by Project (%)
 							</h3>
 						</div>
-						<div class="panel-body">
-							body
+						<div class="panel-body" style="text-align:center;">
+							<breakdown type.bind="'project'" period.bind="'day'" day.bind="today"></breakdown>
 						</div>
 					</div>
 				</div>
