@@ -87,7 +87,6 @@ export default class Track {
     return {
   		name: null,
   		desc: null,
-  		project_id: null,
   		start_time: null,
   		end_time: null,
       completed: false,
