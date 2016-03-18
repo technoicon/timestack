@@ -1,4 +1,0 @@
-/* */ 
-var tape = require('tape')
-
-

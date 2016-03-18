@@ -1,1 +1,0 @@
-module.exports = require("npm:errno@0.1.4/errno");

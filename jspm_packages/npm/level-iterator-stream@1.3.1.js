@@ -1,1 +1,0 @@
-module.exports = require("npm:level-iterator-stream@1.3.1/index");

@@ -1,1 +1,0 @@
-module.exports = require("npm:scope-eval@0.0.3/scope_eval");

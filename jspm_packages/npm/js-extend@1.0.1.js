@@ -1,1 +1,0 @@
-module.exports = require("npm:js-extend@1.0.1/extend");

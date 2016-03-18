@@ -1,1 +1,0 @@
-module.exports = require("npm:pull-stream@2.21.0/index");
