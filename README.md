@@ -3,7 +3,10 @@
 Personal time tracking
 
 ## Try it
-[Koding VM](http://169.44.62.144/)
+$ npm install  
+$ jspm install  
+  
+$ gulp watch
 
 ## Things
 

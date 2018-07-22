@@ -1,1 +1,0 @@
-module.exports = require("npm:bytewise-core@1.2.3/index");

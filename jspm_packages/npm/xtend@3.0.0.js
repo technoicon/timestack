@@ -1,1 +1,0 @@
-module.exports = require("npm:xtend@3.0.0/index");

@@ -1,1 +1,0 @@
-module.exports = require("npm:prr@0.0.0/prr");

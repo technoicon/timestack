@@ -1,1 +1,0 @@
-module.exports = require("npm:write-stream@0.4.3/index");

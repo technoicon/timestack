@@ -45,6 +45,7 @@ gulp.task('build-css', function() {
 // https://www.npmjs.com/package/gulp-run-sequence
 gulp.task('build', function(callback) {
   return runSequence(
+    'unbundle',
     'clean',
     ['build-system', 'build-html', 'build-css'],
     callback

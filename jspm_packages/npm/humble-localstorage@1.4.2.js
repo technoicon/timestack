@@ -1,1 +1,0 @@
-module.exports = require("npm:humble-localstorage@1.4.2/lib/index");

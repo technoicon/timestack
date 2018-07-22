@@ -1,1 +1,0 @@
-module.exports = require("npm:fruitdown@1.0.1/index");

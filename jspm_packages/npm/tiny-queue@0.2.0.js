@@ -1,1 +1,0 @@
-module.exports = require("npm:tiny-queue@0.2.0/index");

@@ -1,1 +1,0 @@
-module.exports = require("npm:ltgt@2.1.2/index");

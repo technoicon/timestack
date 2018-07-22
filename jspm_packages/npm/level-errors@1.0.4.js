@@ -1,1 +1,0 @@
-module.exports = require("npm:level-errors@1.0.4/errors");
